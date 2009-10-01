@@ -1,4 +1,4 @@
-package com.single.desktopoa.module.mydesk.service.impl;
+package com.single.desktopoa.module.mydesk.serviceimpl;
 
 import java.util.ArrayList;
 import java.util.List;
