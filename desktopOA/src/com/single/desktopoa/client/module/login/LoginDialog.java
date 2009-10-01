@@ -32,7 +32,7 @@ import com.single.desktopoa.client.model.ClientPerson;
 import com.single.desktopoa.client.module.notice.NoticeBoard;
 import com.single.desktopoa.common.service.LoginService;
 import com.single.desktopoa.common.service.LoginServiceAsync;
-import com.single.desktopoa.module.comet.CometServiceAsync;
+import com.single.desktopoa.module.comet.service.CometServiceAsync;
 
 public class LoginDialog extends Dialog {
 	protected TextField<String> username;
