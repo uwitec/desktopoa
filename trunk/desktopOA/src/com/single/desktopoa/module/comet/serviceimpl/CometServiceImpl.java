@@ -1,4 +1,4 @@
-package com.single.desktopoa.module.comet.impl;
+package com.single.desktopoa.module.comet.serviceimpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ import com.extjs.gxt.ui.client.data.BaseModelData;
 import com.extjs.gxt.ui.client.data.ModelData;
 import com.single.desktopoa.exception.RetryException;
 import com.single.desktopoa.module.BaseService;
-import com.single.desktopoa.module.comet.CometService;
+import com.single.desktopoa.module.comet.service.CometService;
 
 public class CometServiceImpl extends BaseService implements CometService {
 
