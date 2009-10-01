@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="桌面OA应用" basedir=".">
+	<property name="src.dir" value="${basedir}/src"/>
+	<property name="class.dir" value="${basedir}"/>
+	<property name="xdoclet.home" value="E:\JavaLib\xdoclet-plugins-dist-1.0.4"/>
+	
+	<!-- build path -->
+	<path id="xdoclet.classpath">
+		<fileset dir="${xdoclet.home}/lib">
+			<include name="**/*.jar"/>
+		</fileset>
+	</path>
+	
+	<taskdef name="xdoclet" classname="org.xdoclet.ant.XDocletTask" classpathref="xdoclet.classpath"/>
+		
+	<target name="生成Hibernate配置文件">
+		<xdoclet>
+			<fileset dir="${src.dir}/com/single/desktopoa">
+				<include name="common/**/*.java"/>
+				<include name="module/**/*.java"/>
+			</fileset>
+			<component classname="org.xdoclet.plugin.hibernate.HibernateConfigPlugin"
+					destdir="${src.dir}"
+					version="3.0"
+					hbm2ddlauto="update"
+					jdbcurl="jdbc:mysql://localhost:3306/desktopoa"
+					jdbcdriver="com.mysql.jdbc.Driver"
+					jdbcusername="root"
+					jdbcpassword="159222"
+					dialect="org.hibernate.dialect.MySQLDialect"
+					showsql="true"
+			/>
+		</xdoclet>
+	</target>
+	<target name="生成映射文件">
+		<xdoclet>
+			<fileset dir="${src.dir}/">
+				<include name="com/single/desktopoa/module/**/*.java"/>
+				<include name="com/single/desktopoa/common/**/*.java"/>
+			</fileset>
+			<component classname="org.xdoclet.plugin.hibernate.HibernateMappingPlugin"
+					version="3.0"
+					destdir="${src.dir}"
+			/>
+		</xdoclet>
+	</target>
+</project>
