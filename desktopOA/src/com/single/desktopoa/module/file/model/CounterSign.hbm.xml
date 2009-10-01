@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class table="CounterSign" name="com.single.desktopoa.module.file.model.CounterSign">
+    <id access="field" name="id">
+      <generator class="native"/>
+    </id>
+    <many-to-one access="field" name="file"/>
+    <property name="createDate" access="field"/>
+    <property name="reason" access="field"/>
+    <set inverse="true" cascade="all" access="field" lazy="extra" name="signers">
+      <key column="counterSign"/>
+      <one-to-many class="com.single.desktopoa.module.file.model.SignRecord"/>
+    </set>
+    <property name="signOver" access="field"/>
+  </class>
+</hibernate-mapping>

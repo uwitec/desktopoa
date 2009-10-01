@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class table="user" name="com.single.desktopoa.common.user.User">
+    <id access="field" name="id">
+      <generator class="native"/>
+    </id>
+    <property name="username" access="field" unique="true"/>
+    <property name="password" access="field"/>
+  </class>
+</hibernate-mapping>

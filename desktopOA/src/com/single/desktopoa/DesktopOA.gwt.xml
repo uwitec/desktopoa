@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 1.7.0//EN" "http://google-web-toolkit.googlecode.com/svn/tags/1.7.0/distro-source/core/src/gwt-module.dtd">
+<module rename-to='desktopoa'>
+  <inherits name='com.google.gwt.user.User'/>
+  <inherits name='com.extjs.gxt.desktop.WebDesktop' />
+  
+  
+  
+  
+  <source path="client"></source>
+  <source path="common/service"></source>
+  
+  
+  <source path="module/mail/service"></source>
+  
+  <source path="module/file/service"></source>
+  
+  <source path="module/comet"></source>
+  
+  <source path="module/notice/service"></source>
+  
+  <source path="module/worktalk/service"></source>
+  
+
+  
+  <entry-point class='com.single.desktopoa.client.DesktopOA'/>
+</module>

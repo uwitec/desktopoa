@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class table="notice" name="com.single.desktopoa.module.notice.model.Notice">
+    <id access="field" name="id">
+      <generator class="native"/>
+    </id>
+    <property name="subject" access="field"/>
+    <many-to-one access="field" name="creator"/>
+    <property name="createDate" access="field"/>
+    <property name="content" length="2000" access="field"/>
+    <property name="width" access="field"/>
+    <property name="heigth" access="field"/>
+  </class>
+</hibernate-mapping>
