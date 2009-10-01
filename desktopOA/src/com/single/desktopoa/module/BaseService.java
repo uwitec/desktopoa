@@ -13,8 +13,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 
-import net.sf.hibernate4gwt.core.HibernateBeanManager;
-import net.sf.hibernate4gwt.gwt.HibernateRemoteService;
 
 import org.eclipse.jetty.continuation.Continuation;
 import org.eclipse.jetty.continuation.ContinuationThrowable;
