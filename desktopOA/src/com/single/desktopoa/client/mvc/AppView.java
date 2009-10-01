@@ -41,7 +41,7 @@ import com.single.desktopoa.client.module.set.About;
 import com.single.desktopoa.client.module.set.LockDialog;
 import com.single.desktopoa.client.module.set.PersonalInfo;
 import com.single.desktopoa.client.module.set.Preferences;
-import com.single.desktopoa.module.comet.CometServiceAsync;
+import com.single.desktopoa.module.comet.service.CometServiceAsync;
 
 public class AppView  extends View{
 	//图标资源
