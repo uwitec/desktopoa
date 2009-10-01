@@ -20,7 +20,7 @@
 	 
   	<servlet>
   		<servlet-name>login</servlet-name>
-  		<servlet-class>com.single.desktopoa.common.service.impl.LoginServiceImpl</servlet-class>
+  		<servlet-class>com.single.desktopoa.common.serviceimpl.LoginServiceImpl</servlet-class>
   	</servlet>
   	<servlet-mapping>
   		<servlet-name>login</servlet-name>
@@ -30,7 +30,7 @@
   	
   	<servlet>
   		<servlet-name>mail</servlet-name>
-  		<servlet-class>com.single.desktopoa.module.mail.service.impl.MailServiceImpl</servlet-class>
+  		<servlet-class>com.single.desktopoa.module.mail.serviceimpl.MailServiceImpl</servlet-class>
   	</servlet>
   	<servlet-mapping>
   		<servlet-name>mail</servlet-name>
@@ -39,7 +39,7 @@
   	
   	<servlet>
   		<servlet-name>file</servlet-name>
-  		<servlet-class>com.single.desktopoa.module.file.service.impl.FileServiceImpl</servlet-class>
+  		<servlet-class>com.single.desktopoa.module.file.serviceimpl.FileServiceImpl</servlet-class>
   	</servlet>
   	<servlet-mapping>
   		<servlet-name>file</servlet-name>
@@ -48,7 +48,7 @@
   	
   	<servlet>
   		<servlet-name>comet</servlet-name>
-  		<servlet-class>com.single.desktopoa.module.comet.impl.CometServiceImpl</servlet-class>
+  		<servlet-class>com.single.desktopoa.module.comet.serviceimpl.CometServiceImpl</servlet-class>
   	</servlet>
   	<servlet-mapping>
   		<servlet-name>comet</servlet-name>
@@ -57,7 +57,7 @@
   	
   	<servlet>
   		<servlet-name>notice</servlet-name>
-  		<servlet-class>com.single.desktopoa.module.notice.service.impl.NoticeServiceImpl</servlet-class>
+  		<servlet-class>com.single.desktopoa.module.notice.serviceimpl.NoticeServiceImpl</servlet-class>
   	</servlet>
   	<servlet-mapping>
   		<servlet-name>notice</servlet-name>
@@ -66,7 +66,7 @@
   	
   	<servlet>
   		<servlet-name>workTalk</servlet-name>
-  		<servlet-class>com.single.desktopoa.module.worktalk.service.impl.WorkTalkServiceImpl</servlet-class>
+  		<servlet-class>com.single.desktopoa.module.worktalk.serviceimpl.WorkTalkServiceImpl</servlet-class>
   	</servlet>
   	<servlet-mapping>
   		<servlet-name>workTalk</servlet-name>
@@ -75,7 +75,7 @@
   	
   	<servlet>
   		<servlet-name>deptment</servlet-name>
-  		<servlet-class>com.single.desktopoa.common.service.impl.DeptmentServiceImpl</servlet-class>
+  		<servlet-class>com.single.desktopoa.common.serviceimpl.DeptmentServiceImpl</servlet-class>
   	</servlet>
   	<servlet-mapping>
   		<servlet-name>deptment</servlet-name>
