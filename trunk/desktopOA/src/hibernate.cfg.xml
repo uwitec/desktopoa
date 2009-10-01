@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/desktopoa</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.password">159222</property>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.show_sql">true</property>
+    <property name="hibernate.hbm2ddl.auto">update</property>
+    <mapping resource="com/single/desktopoa/common/deptment/Deptment.hbm.xml"/>
+    <mapping resource="com/single/desktopoa/common/person/Person.hbm.xml"/>
+    <mapping resource="com/single/desktopoa/common/user/User.hbm.xml"/>
+    <mapping resource="com/single/desktopoa/module/file/model/CounterSign.hbm.xml"/>
+    <mapping resource="com/single/desktopoa/module/file/model/File.hbm.xml"/>
+    <mapping resource="com/single/desktopoa/module/file/model/SignRecord.hbm.xml"/>
+    <mapping resource="com/single/desktopoa/module/mail/model/InBoxMail.hbm.xml"/>
+    <mapping resource="com/single/desktopoa/module/mail/model/SendBoxMail.hbm.xml"/>
+    <mapping resource="com/single/desktopoa/module/notice/model/Notice.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>

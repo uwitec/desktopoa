@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class table="person" name="com.single.desktopoa.common.person.Person">
+    <id access="field" name="id">
+      <generator class="native"/>
+    </id>
+    <property name="name" access="field" not-null="true"/>
+    <property name="email" access="field"/>
+    <many-to-one cascade="all" access="field" name="account"/>
+    <many-to-one access="field" name="deptment"/>
+  </class>
+</hibernate-mapping>

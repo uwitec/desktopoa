@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class table="Deptment" name="com.single.desktopoa.common.deptment.Deptment">
+    <id access="field" name="id">
+      <generator class="native"/>
+    </id>
+    <property name="name" length="50" access="field"/>
+    <many-to-one access="field" name="highDept"/>
+    <set inverse="true" access="field" lazy="extra" name="subDept">
+      <key column="highDept"/>
+      <one-to-many class="com.single.desktopoa.common.deptment.Deptment"/>
+    </set>
+    <property name="leader" access="field"/>
+    <set inverse="true" access="field" lazy="extra" name="employee">
+      <key column="deptment"/>
+      <one-to-many class="com.single.desktopoa.common.person.Person"/>
+    </set>
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class table="inboxMail" name="com.single.desktopoa.module.mail.model.InBoxMail">
+    <id access="field" name="id">
+      <generator class="native"/>
+    </id>
+    <many-to-one access="field" lazy="false" name="sender"/>
+    <many-to-one access="field" not-null="true" name="receiver"/>
+    <property name="subject" access="field"/>
+    <property name="content" access="field"/>
+    <property name="receiveIdList" access="field"/>
+    <property name="receiveNameList" access="field"/>
+    <property name="sendDate" access="field"/>
+  </class>
+</hibernate-mapping>
