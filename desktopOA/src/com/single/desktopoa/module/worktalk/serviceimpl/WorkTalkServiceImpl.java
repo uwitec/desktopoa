@@ -1,4 +1,4 @@
-package com.single.desktopoa.module.worktalk.service.impl;
+package com.single.desktopoa.module.worktalk.serviceimpl;
 
 import java.util.ArrayList;
 import java.util.Date;
