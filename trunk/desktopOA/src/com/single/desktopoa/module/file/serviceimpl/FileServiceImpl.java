@@ -1,4 +1,4 @@
-package com.single.desktopoa.module.file.service.impl;
+package com.single.desktopoa.module.file.serviceimpl;
 
 import java.util.ArrayList;
 import java.util.Date;
