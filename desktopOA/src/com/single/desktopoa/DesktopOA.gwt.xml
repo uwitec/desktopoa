@@ -11,11 +11,13 @@
   <source path="common/service"></source>
   
   
-  <source path="module/mail/service"></source>
+  <source path="module/mail/service">
+  </source>
   
-  <source path="module/file/service"></source>
+  <source path="module/file/service">
+  </source>
   
-  <source path="module/comet"></source>
+  <source path="module/comet/service"></source>
   
   <source path="module/notice/service"></source>
   
