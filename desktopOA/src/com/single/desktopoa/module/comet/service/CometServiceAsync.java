@@ -1,4 +1,4 @@
-package com.single.desktopoa.module.comet;
+package com.single.desktopoa.module.comet.service;
 
 import java.util.List;
 import java.util.Queue;
