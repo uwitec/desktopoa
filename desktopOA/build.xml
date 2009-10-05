@@ -26,7 +26,7 @@
 					jdbcurl="jdbc:mysql://localhost:3306/desktopoa"
 					jdbcdriver="com.mysql.jdbc.Driver"
 					jdbcusername="root"
-					jdbcpassword="159222"
+					jdbcpassword="123456"
 					dialect="org.hibernate.dialect.MySQLDialect"
 					showsql="true"
 			/>
