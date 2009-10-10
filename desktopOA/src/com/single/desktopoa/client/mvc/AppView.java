@@ -221,10 +221,17 @@ public class AppView  extends View{
 	
 	private void initShortcut(){
 		for(ShortcutModel model:shortcutList){
-			for(ShortcutWapper short1:model.getShorts()){
-				short1.setShow(cookieProvider.getBoolean(short1.getCookieId()));
-				if(short1.isShow()){
-					desktop.addShortcut(short1.getShortcut());
+			for(ShortcutWapper wapper:model.getShorts()){
+				Boolean isShow=(Boolean) cookieProvider.get(wapper.getCookieId());
+				if(isShow==null){
+					if(wapper.isShow()){
+						desktop.addShortcut(wapper.getShortcut());
+					}
+				}else{
+					wapper.setShow(isShow);
+					if(isShow){
+						desktop.addShortcut(wapper.getShortcut());
+					}
 				}
 			}
 		}
