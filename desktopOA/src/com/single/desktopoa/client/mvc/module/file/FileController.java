@@ -45,9 +45,11 @@ public class FileController extends Controller {
 			
 			ShortcutWapper wapper=new ShortcutWapper();
 			wapper.setCookieId(COOKIE_SHORTCUT_FILE);
+			wapper.setShow(true);
 			wapper.setShortcut(shortcut);
 			
 			model.getShorts().add(wapper);
+			AppView.shortcutList.add(model);
 			
 			//自启动
 			AutoRunModel autoRunModel=new AutoRunModel();
