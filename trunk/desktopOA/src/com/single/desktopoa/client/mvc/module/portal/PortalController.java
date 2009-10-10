@@ -1,17 +1,16 @@
 package com.single.desktopoa.client.mvc.module.portal;
 
-import com.extjs.gxt.desktop.client.Shortcut;
 import com.extjs.gxt.desktop.client.StartMenu;
 import com.extjs.gxt.ui.client.Registry;
-import com.extjs.gxt.ui.client.event.EventType;
 import com.extjs.gxt.ui.client.mvc.AppEvent;
 import com.extjs.gxt.ui.client.mvc.Controller;
 import com.extjs.gxt.ui.client.widget.menu.MenuItem;
 import com.single.desktopoa.client.event.AppEvents;
 import com.single.desktopoa.client.model.AutoRunModel;
-import com.single.desktopoa.client.model.ShortcutModel;
-import com.single.desktopoa.client.model.ShortcutModel.ShortcutWapper;
+import com.single.desktopoa.client.model.ShortcutGroup;
 import com.single.desktopoa.client.mvc.AppView;
+import com.single.mydesktop.client.MyDesktop;
+import com.single.mydesktop.client.MyShortcut;
 
 public class PortalController extends Controller {
 	public static final String COOKIE_SHORTCUT_PORTAL="xhf-shortcut-portal";
@@ -29,21 +28,21 @@ public class PortalController extends Controller {
 	@Override
 	public void handleEvent(AppEvent event) {
 		if(event.getType()==AppEvents.Init){
-			ShortcutModel model=new ShortcutModel();
+			MyDesktop desktop=Registry.get(AppView.DESKTOP);
 			
-			ShortcutWapper wapper=new ShortcutWapper();
+			ShortcutGroup group=new ShortcutGroup();
+			group.setName("主界面");
 			
-			Shortcut shortcut=new Shortcut();
+			
+			
+			MyShortcut shortcut=new MyShortcut();
 			shortcut.setText("主界面");
-			shortcut.setData("event", AppEvents.PORTAL);
-			shortcut.addSelectionListener(AppView.shortcutListener);
+			shortcut.setEvent(AppEvents.PORTAL);
+			shortcut.setCookie(COOKIE_SHORTCUT_PORTAL);
+			shortcut.setDefaultShow(true);
 			
-			wapper.setShortcut(shortcut);
-			wapper.setCookieId(COOKIE_SHORTCUT_PORTAL);
-			
-			model.setName("主界面");
-			model.getShorts().add(wapper);
-			AppView.shortcutList.add(model);
+			group.addMyShortcut(shortcut);
+			desktop.addMyShortcut(shortcut,false);
 			
 			//自启动
 			AutoRunModel autoRunModel=new AutoRunModel();

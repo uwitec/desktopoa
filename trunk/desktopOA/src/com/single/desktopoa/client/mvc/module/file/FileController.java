@@ -1,5 +1,7 @@
 package com.single.desktopoa.client.mvc.module.file;
 
+import java.util.List;
+
 import com.extjs.gxt.desktop.client.Desktop;
 import com.extjs.gxt.desktop.client.Shortcut;
 import com.extjs.gxt.desktop.client.StartMenu;
@@ -10,9 +12,10 @@ import com.extjs.gxt.ui.client.mvc.Controller;
 import com.extjs.gxt.ui.client.widget.menu.MenuItem;
 import com.single.desktopoa.client.event.AppEvents;
 import com.single.desktopoa.client.model.AutoRunModel;
-import com.single.desktopoa.client.model.ShortcutModel;
-import com.single.desktopoa.client.model.ShortcutModel.ShortcutWapper;
+import com.single.desktopoa.client.model.ShortcutGroup;
 import com.single.desktopoa.client.mvc.AppView;
+import com.single.mydesktop.client.MyDesktop;
+import com.single.mydesktop.client.MyShortcut;
 
 public class FileController extends Controller {
 
@@ -33,23 +36,24 @@ public class FileController extends Controller {
 	@Override
 	public void handleEvent(AppEvent event) {
 		if(event.getType()==AppEvents.Init){
-			ShortcutModel model=new ShortcutModel();
-			model.setName("文档系统");
+			List<ShortcutGroup> list=Registry.get(AppView.SHORTCUT_GROUP);
+			
+			ShortcutGroup group=new ShortcutGroup();
+			group.setName("文档系统");
+			list.add(group);
 			
 			
-			Shortcut shortcut=new Shortcut();
+			MyShortcut shortcut=new MyShortcut();
 			shortcut.setText("文档系统");
 			shortcut.setIcon(AppView.appIcons.file32());
-			shortcut.setData("event", AppEvents.FILE);
-			shortcut.addSelectionListener(AppView.shortcutListener);
+			shortcut.setCookie(COOKIE_SHORTCUT_FILE);
+			shortcut.setDefaultShow(true);
+			shortcut.setEvent(AppEvents.FILE);
 			
-			ShortcutWapper wapper=new ShortcutWapper();
-			wapper.setCookieId(COOKIE_SHORTCUT_FILE);
-			wapper.setShow(true);
-			wapper.setShortcut(shortcut);
+			group.addMyShortcut(shortcut);
 			
-			model.getShorts().add(wapper);
-			AppView.shortcutList.add(model);
+			MyDesktop desktop=Registry.get(AppView.DESKTOP);
+			desktop.addMyShortcut(shortcut, false);
 			
 			//自启动
 			AutoRunModel autoRunModel=new AutoRunModel();

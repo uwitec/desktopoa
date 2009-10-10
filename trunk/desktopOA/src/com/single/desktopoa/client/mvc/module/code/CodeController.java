@@ -1,12 +1,16 @@
 package com.single.desktopoa.client.mvc.module.code;
 
+import java.util.List;
+
 import com.extjs.gxt.desktop.client.Shortcut;
+import com.extjs.gxt.ui.client.Registry;
 import com.extjs.gxt.ui.client.mvc.AppEvent;
 import com.extjs.gxt.ui.client.mvc.Controller;
 import com.single.desktopoa.client.event.AppEvents;
-import com.single.desktopoa.client.model.ShortcutModel;
-import com.single.desktopoa.client.model.ShortcutModel.ShortcutWapper;
+import com.single.desktopoa.client.model.ShortcutGroup;
 import com.single.desktopoa.client.mvc.AppView;
+import com.single.mydesktop.client.MyDesktop;
+import com.single.mydesktop.client.MyShortcut;
 
 public class CodeController extends Controller {
 
@@ -24,22 +28,23 @@ public class CodeController extends Controller {
 	@Override
 	public void handleEvent(AppEvent event) {
 		if(event.getType()==AppEvents.Init){
-			ShortcutModel model=new ShortcutModel();
-			model.setName("源代码");
+			List<ShortcutGroup> list=Registry.get(AppView.SHORTCUT_GROUP);
 			
-			Shortcut shortcut=new Shortcut();
+			ShortcutGroup group=new ShortcutGroup();
+			group.setName("源代码");
+			list.add(group);
+			
+			MyShortcut shortcut=new MyShortcut();
 			shortcut.setText("源代码");
 			shortcut.setIcon(AppView.appIcons.file32());
-			shortcut.setData("event", AppEvents.CODE);
-			shortcut.addSelectionListener(AppView.shortcutListener);
+			shortcut.setCookie(COOKIE_SHORTCUT_CODE);
+			shortcut.setDefaultShow(true);
+			shortcut.setEvent(AppEvents.CODE);
 			
-			ShortcutWapper wapper=new ShortcutWapper();
-			wapper.setCookieId(COOKIE_SHORTCUT_CODE);
-			wapper.setShow(true);
-			wapper.setShortcut(shortcut);
+			group.addMyShortcut(shortcut);
 			
-			model.getShorts().add(wapper);
-			AppView.shortcutList.add(model);
+			MyDesktop desktop=Registry.get(AppView.DESKTOP);
+			desktop.addMyShortcut(shortcut, false);
 		}
 		forwardToView(codeView, event);
 	}

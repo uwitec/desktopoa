@@ -9,11 +9,12 @@ import com.extjs.gxt.ui.client.mvc.Controller;
 import com.extjs.gxt.ui.client.widget.menu.MenuItem;
 import com.single.desktopoa.client.event.AppEvents;
 import com.single.desktopoa.client.model.AutoRunModel;
-import com.single.desktopoa.client.model.ShortcutModel;
-import com.single.desktopoa.client.model.ShortcutModel.ShortcutWapper;
+import com.single.desktopoa.client.model.ShortcutGroup;
 import com.single.desktopoa.client.module.notice.NoticePortlet;
 import com.single.desktopoa.client.mvc.AppView;
 import com.single.desktopoa.client.mvc.module.portal.PortalView;
+import com.single.mydesktop.client.MyDesktop;
+import com.single.mydesktop.client.MyShortcut;
 
 public class NoticeController extends Controller {
 
@@ -33,20 +34,21 @@ public class NoticeController extends Controller {
 	@Override
 	public void handleEvent(AppEvent event) {
 		if(event.getType()==AppEvents.Init){
-			Shortcut shortcut=new Shortcut();
+			MyDesktop desktop=Registry.get(AppView.DESKTOP);
+			
+			ShortcutGroup group=new ShortcutGroup();
+			group.setName("公告系统");
+			
+			MyShortcut shortcut=new MyShortcut();
 			shortcut.setText("公告系统");
 			shortcut.setIcon(AppView.appIcons.notice32());
-			shortcut.setData("event", AppEvents.NOTICE);
-			shortcut.addSelectionListener(AppView.shortcutListener);
+			shortcut.setEvent(AppEvents.NOTICE);
+			shortcut.setCookie(COOKIE_SHORTCUT_NOTICE);
+			shortcut.setDefaultShow(true);
 			
-			ShortcutModel model=new ShortcutModel();
-			model.setName("公告系统");
-			ShortcutWapper short1=new ShortcutWapper();
-			short1.setCookieId(COOKIE_SHORTCUT_NOTICE);
-			short1.setShortcut(shortcut);
+			group.addMyShortcut(shortcut);
+			desktop.addMyShortcut(shortcut, false);
 			
-			model.getShorts().add(short1);
-			AppView.shortcutList.add(model);
 			
 			//自启动
 			AutoRunModel autoRunModel=new AutoRunModel();
