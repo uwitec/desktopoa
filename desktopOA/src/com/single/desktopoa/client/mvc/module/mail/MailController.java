@@ -1,5 +1,7 @@
 package com.single.desktopoa.client.mvc.module.mail;
 
+import java.util.List;
+
 import com.extjs.gxt.desktop.client.Shortcut;
 import com.extjs.gxt.desktop.client.StartMenu;
 import com.extjs.gxt.ui.client.Registry;
@@ -9,11 +11,12 @@ import com.extjs.gxt.ui.client.widget.menu.Menu;
 import com.extjs.gxt.ui.client.widget.menu.MenuItem;
 import com.single.desktopoa.client.event.AppEvents;
 import com.single.desktopoa.client.model.AutoRunModel;
-import com.single.desktopoa.client.model.ShortcutModel;
-import com.single.desktopoa.client.model.ShortcutModel.ShortcutWapper;
+import com.single.desktopoa.client.model.ShortcutGroup;
 import com.single.desktopoa.client.module.mail.MailPortlet;
 import com.single.desktopoa.client.mvc.AppView;
 import com.single.desktopoa.client.mvc.module.portal.PortalView;
+import com.single.mydesktop.client.MyDesktop;
+import com.single.mydesktop.client.MyShortcut;
 
 public class MailController extends Controller {
 
@@ -36,32 +39,33 @@ public class MailController extends Controller {
 	@Override
 	public void handleEvent(AppEvent event) {
 		if(event.getType()==AppEvents.Init){
-			ShortcutModel model=new ShortcutModel();
-			model.setName("邮件系统");
+			MyDesktop desktop=Registry.get(AppView.DESKTOP);
+			List<ShortcutGroup> list=Registry.get(AppView.SHORTCUT_GROUP);
 			
-			Shortcut shortcut=new Shortcut();
+			ShortcutGroup group=new ShortcutGroup();
+			group.setName("邮件系统");
+			list.add(group);
+			
+			MyShortcut shortcut=new MyShortcut();
 			shortcut.setText("邮件系统");
 			shortcut.setIcon(AppView.appIcons.mail32());
-			shortcut.setData("event", AppEvents.MAIL);
-			shortcut.addSelectionListener(AppView.shortcutListener);
+			shortcut.setEvent(AppEvents.MAIL);
+			shortcut.setCookie(COOKIE_SHORTCUT_MAIL);
+			shortcut.setDefaultShow(true);
 			
-			ShortcutWapper wapper=new ShortcutWapper();
-			wapper.setShortcut(shortcut);
-			wapper.setShow(true);
-			wapper.setCookieId(COOKIE_SHORTCUT_MAIL);
-			model.getShorts().add(wapper);
+			group.addMyShortcut(shortcut);
+			desktop.addMyShortcut(shortcut, false);
 			
-			shortcut=new Shortcut();
+			shortcut=new MyShortcut();
 			shortcut.setText("新邮件");
 			shortcut.setIcon(AppView.appIcons.mail32());
-			shortcut.setData("event", AppEvents.MAIL_new);
-			shortcut.addSelectionListener(AppView.shortcutListener);
-			wapper=new ShortcutWapper();
-			wapper.setShortcut(shortcut);
-			wapper.setCookieId(COOKIE_SHORTCUT_MAIL_NEW);
-			model.getShorts().add(wapper);
+			shortcut.setEvent(AppEvents.MAIL_new);
+			shortcut.setCookie(COOKIE_SHORTCUT_MAIL_NEW);
+			shortcut.setDefaultShow(false);
 			
-			AppView.shortcutList.add(model);
+			group.addMyShortcut(shortcut);
+			desktop.addMyShortcut(shortcut, false);
+			
 			
 			//子启动
 			AutoRunModel autoRunModel=new AutoRunModel();

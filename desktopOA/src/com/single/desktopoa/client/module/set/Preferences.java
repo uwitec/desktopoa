@@ -3,13 +3,10 @@ package com.single.desktopoa.client.module.set;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.extjs.gxt.desktop.client.Desktop;
-import com.extjs.gxt.desktop.client.Shortcut;
 import com.extjs.gxt.ui.client.Registry;
 import com.extjs.gxt.ui.client.Style.Scroll;
 import com.extjs.gxt.ui.client.data.BaseModelData;
 import com.extjs.gxt.ui.client.data.ModelData;
-import com.extjs.gxt.ui.client.event.BaseEvent;
 import com.extjs.gxt.ui.client.event.ButtonEvent;
 import com.extjs.gxt.ui.client.event.ComponentEvent;
 import com.extjs.gxt.ui.client.event.Events;
@@ -29,13 +26,15 @@ import com.extjs.gxt.ui.client.widget.toolbar.ToolBar;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.single.desktopoa.client.model.AutoRunModel;
-import com.single.desktopoa.client.model.ShortcutModel;
-import com.single.desktopoa.client.model.ShortcutModel.ShortcutWapper;
+import com.single.desktopoa.client.model.ShortcutGroup;
 import com.single.desktopoa.client.mvc.AppView;
+import com.single.mydesktop.client.MyDesktop;
+import com.single.mydesktop.client.MyShortcut;
 
 public class Preferences extends Window {
 
 	private static Preferences preferences;
+	private MyDesktop desktop=Registry.get(AppView.DESKTOP);
 	
 	private LayoutContainer main;
 	private LayoutContainer shortcutSet;
@@ -163,38 +162,29 @@ public class Preferences extends Window {
 	private Listener<ComponentEvent> shortcutChangeListener=new Listener<ComponentEvent>(){
 		public void handleEvent(ComponentEvent be) {
 			CheckBox box=be.getComponent();
-			ShortcutWapper shortcutWapper=box.getData("shortcutWapper");
-			Shortcut shortcut=shortcutWapper.getShortcut();
-			Desktop desktop=Registry.get(AppView.DESKTOP);
+			MyShortcut shortcut=box.getData("myShortcut");
 			if(box.getValue()){
-				if(!desktop.getShortcuts().contains(shortcut)){
-					desktop.addShortcut(shortcut);
-				}else{
-					shortcut.show();
-				}
+				desktop.addMyShortcut(shortcut);
 				
 			}else{
-				if(desktop.getShortcuts().contains(shortcut)){
-					shortcut.hide();
-				}
+				desktop.removeMyShortcut(shortcut);
 			}
-			shortcutWapper.setShow(box.getValue());
-			AppView.cookieProvider.set(shortcutWapper.getCookieId(), shortcutWapper.isShow());
+			desktop.getCookieProvider().set(shortcut.getCookie(), box.getValue());
 		}
 	};
 	private LayoutContainer createShortcutPanel(){
 		shortcutSet=new LayoutContainer();
 		shortcutSet.setScrollMode(Scroll.AUTO);
 		moduleList=new ArrayList<FieldSet>();
-		for(ShortcutModel model:AppView.shortcutList){
+		List<ShortcutGroup> groupList=Registry.get(AppView.SHORTCUT_GROUP);
+		for(ShortcutGroup group:groupList){
 			FieldSet set=new FieldSet();
-			set.setHeading(model.getName());
-			for(final ShortcutWapper short1:model.getShorts()){
+			set.setHeading(group.getName());
+			for(final MyShortcut shortcut:group.getMyShortcuts()){
 				final CheckBox checkBox=new CheckBox();
-				checkBox.setFieldLabel(short1.getShortcut().getText());
-				checkBox.setValue(short1.isShow());
-				checkBox.setData("shortcutWapper", short1);
-				checkBox.setBoxLabel(short1.getShortcut().getText());
+				checkBox.setData("myShortcut", shortcut);
+				checkBox.setBoxLabel(shortcut.getText());
+				checkBox.setValue(shortcut.isVisible());
 				checkBox.addListener(Events.Change,shortcutChangeListener);
 				set.add(checkBox);
 			}
@@ -211,7 +201,7 @@ public class Preferences extends Window {
 			CheckBox checkBox=be.getComponent();
 			AutoRunModel model=checkBox.getData("autoRun");
 			model.setAutoRun(checkBox.getValue());
-			AppView.cookieProvider.set(model.getCookieId(), checkBox.getValue());
+			desktop.getCookieProvider().set(model.getCookieId(), checkBox.getValue());
 		}
 	};
 	private LayoutContainer createAutoRunPanel(){

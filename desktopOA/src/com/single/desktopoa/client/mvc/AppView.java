@@ -34,27 +34,19 @@ import com.single.desktopoa.client.factory.ServiceFactory;
 import com.single.desktopoa.client.icons.AppIcons;
 import com.single.desktopoa.client.icons.common.CommonIcons;
 import com.single.desktopoa.client.model.AutoRunModel;
-import com.single.desktopoa.client.model.ShortcutModel;
-import com.single.desktopoa.client.model.ShortcutModel.ShortcutWapper;
+import com.single.desktopoa.client.model.ShortcutGroup;
 import com.single.desktopoa.client.module.login.UserCheckboxWindow;
 import com.single.desktopoa.client.module.set.About;
 import com.single.desktopoa.client.module.set.LockDialog;
 import com.single.desktopoa.client.module.set.PersonalInfo;
 import com.single.desktopoa.client.module.set.Preferences;
 import com.single.desktopoa.module.comet.service.CometServiceAsync;
+import com.single.mydesktop.client.MyDesktop;
 
 public class AppView  extends View{
 	//图标资源
 	public static AppIcons appIcons=GWT.create(AppIcons.class);
 	public static CommonIcons commonIcons=GWT.create(CommonIcons.class);
-	//桌面图标listener
-	public static SelectionListener<ComponentEvent> shortcutListener=new SelectionListener<ComponentEvent>(){
-		@Override
-		public void componentSelected(ComponentEvent ce) {
-			EventType type=ce.getComponent().getData("event");
-			Dispatcher.forwardEvent(type);
-		}
-	};
 	//开始菜单listener
 	public static SelectionListener<MenuEvent> startMenuListener=new SelectionListener<MenuEvent>(){
 		@Override
@@ -64,38 +56,36 @@ public class AppView  extends View{
 		}
 		
 	};
+	//桌面快捷分组
+	public List<ShortcutGroup> shortcutGroupList;
 	
-	//桌面快捷设置
-	public static List<ShortcutModel> shortcutList=new  ArrayList<ShortcutModel>();
 	//自启动列表
 	public static List<AutoRunModel> autoRunList=new ArrayList<AutoRunModel>();
-	//Cookie
-	public static CookieProvider cookieProvider=new CookieProvider(null,null,null,false);
 	
 	public static String DESKTOP="desktop";
+	public static String COOKIE_PROVIDER="cookieProvider";
 	public static String TASKBAR="taskBar";
 	public static String START_MENU="startMenu";
+	public static String SHORTCUT_GROUP="shortcutGroupList";
 	
 	public static String USER_CHECKBOX="user_checkbox";
 	
-	private Desktop desktop;
+	private MyDesktop desktop;
 	private TaskBar taskBar;
-	private List<Shortcut> shortcuts;
 	private StartMenu startMenu;
 	@Override
 	protected void initialize() {
-		desktop=new Desktop();
+		desktop=new MyDesktop();
 		taskBar=desktop.getTaskBar();
-		shortcuts=desktop.getShortcuts();
 		
 		startMenu=desktop.getStartMenu();
-		
 		
 		Registry.register(DESKTOP, desktop);
 		Registry.register(TASKBAR, taskBar);
 		Registry.register(START_MENU, startMenu);
 		
-		
+		shortcutGroupList=new ArrayList<ShortcutGroup>();
+		Registry.register(SHORTCUT_GROUP, shortcutGroupList);
 		
 		//用户选择树
 		UserCheckboxWindow window=new UserCheckboxWindow();
@@ -120,8 +110,6 @@ public class AppView  extends View{
 			}else{
 				window.toFront();
 			}
-		}else if(event.getType()==AppEvents.Init_Shortcut){
-			initShortcut();
 		}else if(event.getType()==AppEvents.Init_AutoRun){
 			initAutoRun();
 		}
@@ -180,6 +168,7 @@ public class AppView  extends View{
 		
 		MenuItem setting=new MenuItem("设置",new SelectionListener<MenuEvent>(){
 			public void componentSelected(MenuEvent ce) {
+				Preferences.get().show();
 			}
 		});
 		setting.setIcon(commonIcons.config16());
@@ -219,27 +208,10 @@ public class AppView  extends View{
 		
 	}
 	
-	private void initShortcut(){
-		for(ShortcutModel model:shortcutList){
-			for(ShortcutWapper wapper:model.getShorts()){
-				Boolean isShow=(Boolean) cookieProvider.get(wapper.getCookieId());
-				if(isShow==null){
-					if(wapper.isShow()){
-						desktop.addShortcut(wapper.getShortcut());
-					}
-				}else{
-					wapper.setShow(isShow);
-					if(isShow){
-						desktop.addShortcut(wapper.getShortcut());
-					}
-				}
-			}
-		}
-	}
 	
 	private void initAutoRun(){
 		for(AutoRunModel model:autoRunList){
-			model.setAutoRun(cookieProvider.getBoolean(model.getCookieId()));
+			model.setAutoRun(desktop.getCookieProvider().getBoolean(model.getCookieId()));
 			if(model.isAutoRun()){
 				Dispatcher.forwardEvent(model.getEvent());
 			}
