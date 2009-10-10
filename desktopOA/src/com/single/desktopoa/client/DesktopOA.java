@@ -7,9 +7,11 @@ import com.extjs.gxt.ui.client.event.Listener;
 import com.extjs.gxt.ui.client.mvc.Dispatcher;
 import com.extjs.gxt.ui.client.state.CookieProvider;
 import com.extjs.gxt.ui.client.state.StateManager;
+import com.extjs.gxt.ui.client.util.Theme;
 import com.extjs.gxt.ui.client.widget.Html;
 import com.extjs.gxt.ui.client.widget.MessageBox;
 import com.extjs.gxt.ui.client.widget.Window;
+import com.extjs.gxt.ui.client.widget.custom.ThemeSelector;
 import com.extjs.gxt.ui.client.widget.layout.ColumnLayout;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.Event;
@@ -18,6 +20,7 @@ import com.single.desktopoa.client.module.login.LoginDialog;
 import com.single.desktopoa.client.mvc.AppController;
 import com.single.desktopoa.client.mvc.DesktopController;
 import com.single.desktopoa.client.mvc.StartController;
+import com.single.desktopoa.client.mvc.module.code.CodeController;
 import com.single.desktopoa.client.mvc.module.deptment.DeptmentController;
 import com.single.desktopoa.client.mvc.module.file.FileController;
 import com.single.desktopoa.client.mvc.module.mail.MailController;
@@ -37,10 +40,7 @@ public class DesktopOA implements EntryPoint {
 //		
 //		com.google.gwt.user.client.Window.alert(provider.getString("xhf"));
 		
-		//字体设置
-		//if(GXT.isChrome){
-//			RootPanel.get().getBodyElement().setAttribute("style", "font-size:18px;");
-		//}
+		
 		
 		dispatcher = Dispatcher.get();
 		dispatcher.addController(new AppController());
@@ -55,7 +55,8 @@ public class DesktopOA implements EntryPoint {
 		dispatcher.addController(new WorkTalkController());
 
 		dispatcher.addController(new DeptmentController());
-
+		dispatcher.addController(new CodeController());
+		
 		new LoginDialog().show();
 
 		// DatePick picker=new DatePick();
