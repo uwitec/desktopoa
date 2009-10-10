@@ -48,7 +48,7 @@ public class MailPortlet extends Portlet {
 				
 				add(html);
 				layout();
-				html.el().addEventsSunk(Event.ONCLICK);
+				//html.el().addEventsSunk(Event.ONCLICK);
 			}
 			
 			
