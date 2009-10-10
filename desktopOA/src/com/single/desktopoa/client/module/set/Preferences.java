@@ -6,18 +6,28 @@ import java.util.List;
 import com.extjs.gxt.desktop.client.Desktop;
 import com.extjs.gxt.desktop.client.Shortcut;
 import com.extjs.gxt.ui.client.Registry;
+import com.extjs.gxt.ui.client.Style.Scroll;
+import com.extjs.gxt.ui.client.data.BaseModelData;
+import com.extjs.gxt.ui.client.data.ModelData;
+import com.extjs.gxt.ui.client.event.BaseEvent;
 import com.extjs.gxt.ui.client.event.ButtonEvent;
 import com.extjs.gxt.ui.client.event.ComponentEvent;
 import com.extjs.gxt.ui.client.event.Events;
+import com.extjs.gxt.ui.client.event.ListViewEvent;
 import com.extjs.gxt.ui.client.event.Listener;
 import com.extjs.gxt.ui.client.event.SelectionListener;
+import com.extjs.gxt.ui.client.store.ListStore;
 import com.extjs.gxt.ui.client.widget.LayoutContainer;
+import com.extjs.gxt.ui.client.widget.ListView;
 import com.extjs.gxt.ui.client.widget.Window;
 import com.extjs.gxt.ui.client.widget.button.Button;
 import com.extjs.gxt.ui.client.widget.form.CheckBox;
 import com.extjs.gxt.ui.client.widget.form.FieldSet;
+import com.extjs.gxt.ui.client.widget.form.FileUploadField;
 import com.extjs.gxt.ui.client.widget.layout.CardLayout;
 import com.extjs.gxt.ui.client.widget.toolbar.ToolBar;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.single.desktopoa.client.model.AutoRunModel;
 import com.single.desktopoa.client.model.ShortcutModel;
 import com.single.desktopoa.client.model.ShortcutModel.ShortcutWapper;
@@ -30,6 +40,7 @@ public class Preferences extends Window {
 	private LayoutContainer main;
 	private LayoutContainer shortcutSet;
 	private LayoutContainer autoRunSet;
+	private LayoutContainer backgroundImageSet;
 	
 	private List<FieldSet> moduleList;
 	
@@ -61,9 +72,70 @@ public class Preferences extends Window {
 		createMainPanel();
 		createShortcutPanel();
 		createAutoRunPanel();
+		createBackgroundImagePanel();
 		layout.setActiveItem(main);
 	}
 	
+	private void createBackgroundImagePanel() {
+		backgroundImageSet=new LayoutContainer();
+		
+		add(backgroundImageSet);
+		
+		backgroundImageSet.setId("images-view");
+		ListView<ModelData> view = new ListView<ModelData>();
+		view.setItemSelector("div.thumb-wrap");
+		view.setTemplate(getTemplate());
+		ListStore<ModelData> store = new ListStore<ModelData>();
+
+		ModelData blank=new BaseModelData();
+		blank.set("name", "空白");
+		blank.set("path", "");
+		blank.set("shortName", "空白");
+		store.add(blank);
+		
+		ModelData blue=new BaseModelData();
+		blue.set("name", "蓝色");
+		blue.set("path", "gxt/desktop/wallpapers/desktop.jpg");
+		blue.set("shortName", "蓝色");
+		store.add(blue);
+		
+		ModelData water=new BaseModelData();
+		water.set("name", "水滴");
+		water.set("path", "gxt/desktop/wallpapers/fresh-morning.jpg");
+		water.set("shortName", "水滴");
+		store.add(water);
+		
+		ModelData flower=new BaseModelData();
+		flower.set("name", "花朵");
+		flower.set("path", "gxt/desktop/wallpapers/summer.jpg");
+		flower.set("shortName", "花朵");
+		store.add(flower);
+		
+		ModelData cloud=new BaseModelData();
+		cloud.set("name", "野景");
+		cloud.set("path", "gxt/desktop/wallpapers/colorado-farm.jpg");
+		cloud.set("shortName", "野景");
+		store.add(cloud);
+		
+		ModelData green=new BaseModelData();
+		green.set("name", "绿色");
+		green.set("path", "gxt/desktop/wallpapers/curls-on-green.jpg");
+		green.set("shortName", "绿色");
+		store.add(green);
+		
+		
+		view.setStore(store);
+		
+		view.addListener(Events.OnClick, new Listener<ListViewEvent<ModelData>>(){
+			public void handleEvent(ListViewEvent<ModelData> be) {
+				ModelData data=be.getModel();
+				RootPanel.getBodyElement().setAttribute("background", GWT.getHostPageBaseURL()+data.get("path"));
+			}
+		});
+		
+		backgroundImageSet.add(view);
+	}
+
 	private LayoutContainer createMainPanel(){
 		main=new LayoutContainer();
 		main.addText("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
@@ -77,8 +149,14 @@ public class Preferences extends Window {
 				layout.setActiveItem(autoRunSet);
 			}
 		});
+		Button bgImage=new Button("背景图片",new SelectionListener<ButtonEvent>(){
+			public void componentSelected(ButtonEvent ce) {
+				layout.setActiveItem(backgroundImageSet);
+			}
+		});
 		main.add(shortcut);
 		main.add(autoRun);
+		main.add(bgImage);
 		add(main);
 		return main;
 	}
@@ -106,7 +184,7 @@ public class Preferences extends Window {
 	};
 	private LayoutContainer createShortcutPanel(){
 		shortcutSet=new LayoutContainer();
-		
+		shortcutSet.setScrollMode(Scroll.AUTO);
 		moduleList=new ArrayList<FieldSet>();
 		for(ShortcutModel model:AppView.shortcutList){
 			FieldSet set=new FieldSet();
@@ -151,4 +229,12 @@ public class Preferences extends Window {
 		add(autoRunSet);
 		return autoRunSet;
 	}
+	private native String getTemplate() /*-{
+		return ['<tpl for=".">',
+		'<div class="thumb-wrap" id="{name}" style="border: 1px solid white">',
+		'<div class="thumb"><img src="{path}" title="{name}" width=128 height=128></div>',
+		'<span class="x-editable">{shortName}</span></div>',
+		'</tpl>',
+		'<div class="x-clear"></div>'].join("");
+	}-*/;
 }
