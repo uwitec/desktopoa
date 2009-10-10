@@ -38,4 +38,7 @@ public class AppEvents {
 	public static EventType WORKTALK_newlogin=new EventType();
 	//用户下线
 	public static EventType WORKTALK_logout=new EventType();
+	
+	public static EventType CODE=new EventType();
+	public static EventType CODE_showPage=new EventType();
 }
