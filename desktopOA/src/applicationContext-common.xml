@@ -21,7 +21,7 @@
             <value>root</value>  
         </property>  
         <property name="password">  
-            <value>159222</value>  
+            <value>123456</value>  
         </property>  
    
  		<!--连接池中保留的最小连接数。-->  
