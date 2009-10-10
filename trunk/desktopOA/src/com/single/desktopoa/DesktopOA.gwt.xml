@@ -22,7 +22,7 @@
   <source path="module/notice/service"></source>
   
   <source path="module/worktalk/service"></source>
-  
+  <source path="module/code/service"></source>
 
   
   <entry-point class='com.single.desktopoa.client.DesktopOA'/>
