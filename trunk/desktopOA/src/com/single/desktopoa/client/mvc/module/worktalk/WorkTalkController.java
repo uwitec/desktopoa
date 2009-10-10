@@ -41,13 +41,14 @@ public class WorkTalkController extends Controller {
 			shortcut.setData("event", AppEvents.WORKTALK);
 			shortcut.addSelectionListener(AppView.shortcutListener);
 			
-			ShortcutWapper short1=new ShortcutWapper();
-			short1.setShortcut(shortcut);
-			short1.setCookieId(COOKIE_SHORTCUT_WORKTALK);
+			ShortcutWapper wapper=new ShortcutWapper();
+			wapper.setShortcut(shortcut);
+			wapper.setShow(true);
+			wapper.setCookieId(COOKIE_SHORTCUT_WORKTALK);
 			
 			ShortcutModel model=new ShortcutModel();
 			model.setName("工作通");
-			model.getShorts().add(short1);
+			model.getShorts().add(wapper);
 			
 			AppView.shortcutList.add(model);
 			//自启动
