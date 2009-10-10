@@ -5,6 +5,8 @@ import com.single.desktopoa.common.service.DeptmentService;
 import com.single.desktopoa.common.service.DeptmentServiceAsync;
 import com.single.desktopoa.common.service.LoginService;
 import com.single.desktopoa.common.service.LoginServiceAsync;
+import com.single.desktopoa.module.code.service.CodeService;
+import com.single.desktopoa.module.code.service.CodeServiceAsync;
 import com.single.desktopoa.module.comet.service.CometService;
 import com.single.desktopoa.module.comet.service.CometServiceAsync;
 import com.single.desktopoa.module.file.service.FileService;
@@ -31,5 +33,7 @@ public class ServiceFactory {
 	public static WorkTalkServiceAsync workTalkService=GWT.create(WorkTalkService.class);
 	
 	public static DeptmentServiceAsync deptmentService=GWT.create(DeptmentService.class);
+	
+	public static CodeServiceAsync codeService=GWT.create(CodeService.class);
 	
 }
