@@ -82,6 +82,14 @@
   		<url-pattern>/desktopoa/deptment</url-pattern>
   	</servlet-mapping>
   	
+  	<servlet>
+  		<servlet-name>code</servlet-name>
+  		<servlet-class>com.single.desktopoa.module.code.serviceimpl.CodeServiceImpl</servlet-class>
+  	</servlet>
+  	<servlet-mapping>
+  		<servlet-name>code</servlet-name>
+  		<url-pattern>/desktopoa/code</url-pattern>
+  	</servlet-mapping>
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath*:applicationContext.xml</param-value>
