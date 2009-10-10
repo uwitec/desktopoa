@@ -45,20 +45,21 @@ public class MailController extends Controller {
 			shortcut.setData("event", AppEvents.MAIL);
 			shortcut.addSelectionListener(AppView.shortcutListener);
 			
-			ShortcutWapper shortcutWapper=new ShortcutWapper();
-			shortcutWapper.setShortcut(shortcut);
-			shortcutWapper.setCookieId(COOKIE_SHORTCUT_MAIL);
-			model.getShorts().add(shortcutWapper);
+			ShortcutWapper wapper=new ShortcutWapper();
+			wapper.setShortcut(shortcut);
+			wapper.setShow(true);
+			wapper.setCookieId(COOKIE_SHORTCUT_MAIL);
+			model.getShorts().add(wapper);
 			
 			shortcut=new Shortcut();
 			shortcut.setText("新邮件");
 			shortcut.setIcon(AppView.appIcons.mail32());
 			shortcut.setData("event", AppEvents.MAIL_new);
 			shortcut.addSelectionListener(AppView.shortcutListener);
-			shortcutWapper=new ShortcutWapper();
-			shortcutWapper.setShortcut(shortcut);
-			shortcutWapper.setCookieId(COOKIE_SHORTCUT_MAIL_NEW);
-			model.getShorts().add(shortcutWapper);
+			wapper=new ShortcutWapper();
+			wapper.setShortcut(shortcut);
+			wapper.setCookieId(COOKIE_SHORTCUT_MAIL_NEW);
+			model.getShorts().add(wapper);
 			
 			AppView.shortcutList.add(model);
 			
