@@ -24,4 +24,8 @@ public interface CommonIcons extends ImageBundle {
 	AbstractImagePrototype lock16();
 	
 	AbstractImagePrototype config16();
+	
+	AbstractImagePrototype java16();
+	
+	AbstractImagePrototype xml16();
 }
